@@ -2,21 +2,10 @@ import { ADD_MULTIPLE_TO_CART, ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART, TOGGLE
 
 
 
-const addCart = (product) => ({type: ADD_TO_CART, product});
-const addMultipleToCart = (products) => ({type: ADD_MULTIPLE_TO_CART, products});
-const removeFromCart = (_id) => ({type: REMOVE_FROM_CART, _id});
-const clearCart = () => ({type: CLEAR_CART});
-const updateCartQuantity = (purchaseQuantity) => ({type: UPDATE_CART_QUANTITY, purchaseQuantity});
-const toggleCart = () => ({type: TOGGLE_CART });
+export const addCart = (product) => ({type: ADD_TO_CART, product});
+export const addMultipleToCart = (products) => ({type: ADD_MULTIPLE_TO_CART, products});
+export const removeFromCart = (_id) => ({type: REMOVE_FROM_CART, _id});
+export const clearCart = () => ({type: CLEAR_CART});
+export const updateCartQuantity = (_id, purchaseQuantity) => ({type: UPDATE_CART_QUANTITY, _id, purchaseQuantity});
+export const toggleCart = () => ({type: TOGGLE_CART });
 
-
-const cartActions = {
-    addCart,
-    addMultipleToCart,
-    removeFromCart,
-    clearCart,
-    updateCartQuantity,
-    toggleCart,
-}
-
-export default cartActions;
