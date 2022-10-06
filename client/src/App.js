@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
@@ -7,6 +8,9 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+
+import configureStore from './store/configurestore';
+
 
 import Home from './pages/Home';
 import Detail from './pages/Detail';
@@ -37,44 +41,49 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+const store = configureStore();
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
-            <Nav />
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
-              />
-              <Route 
-                path="/login" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
-              />
-              <Route 
-                path="/success" 
-                element={<Success />} 
-              />
-              <Route 
-                path="/orderHistory" 
-                element={<OrderHistory />} 
-              />
-              <Route 
-                path="/products/:id" 
-                element={<Detail />} 
-              />
-              <Route 
-                path="*" 
-                element={<NoMatch />} 
-              />
-            </Routes>
-          </StoreProvider>
+          <Provider store={store}>
+            <StoreProvider>
+              <Nav />
+              <Routes>
+                <Route 
+                  path="/" 
+                  element={<Home />} 
+                />
+                <Route 
+                  path="/login" 
+                  element={<Login />} 
+                />
+                <Route 
+                  path="/signup" 
+                  element={<Signup />} 
+                />
+                <Route 
+                  path="/success" 
+                  element={<Success />} 
+                />
+                <Route 
+                  path="/orderHistory" 
+                  element={<OrderHistory />} 
+                />
+                <Route 
+                  path="/products/:id" 
+                  element={<Detail />} 
+                />
+                <Route 
+                  path="*" 
+                  element={<NoMatch />} 
+                />
+              </Routes>
+            </StoreProvider>
+          </Provider>
         </div>
       </Router>
     </ApolloProvider>
