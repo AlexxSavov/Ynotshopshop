@@ -1,14 +1,16 @@
-import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { applyMiddleware, compose, createStore } from 'redux'
 
 import rootReducer from './reducers'
 
 export default function configureStore(preloadedState) {
-  const middlewareEnhancer = applyMiddleware()
-  const enhancers = [middlewareEnhancer]
-  const composedEnhancers = composeWithDevTools(...enhancers)
+  const composedEnhancers = 
+    (process.env.NODE_ENV !== 'production' &&
+     typeof window !== 'undefined' &&
+     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+     compose
+  
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancers)
+  const store = createStore(rootReducer, preloadedState, composedEnhancers(applyMiddleware()))
 
   return store
 }
